@@ -5,7 +5,7 @@
 
 ## Installation
 
-Galaxy Link: <https://galaxy.ansible.com/while-true-do.cockpit>
+Galaxy Link: <https://galaxy.ansible.com/while-true-do/cockpit>
 
 ```
 ansible-galaxy install while-true-do.cockpit
