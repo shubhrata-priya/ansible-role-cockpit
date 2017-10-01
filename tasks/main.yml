@@ -11,7 +11,7 @@
 
 - name: Install Cockpit Webserver
   package:
-    name: cockpit-ws
+    name: "{{ cockpit_packages_web}}"
     state: present
   when: cockpit_with_webserver == true
   notify: Enable and Start Cockpit
