@@ -1,7 +1,7 @@
 ---
 - name: Enable and Start Cockpit
   service:
-    name: cockpit
+    name: cockpit.socket
     state: started
     enabled: yes
 
