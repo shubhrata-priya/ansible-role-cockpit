@@ -1,12 +1,22 @@
 ---
-- name: Install Cockpit
+- name: Install Cockpit Packages
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ cockpit_packages }}"
   tags:
     - cockpit
-    - common
+    - monitoring
+
+- name: Install Cockpit Selinux Packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ cockpit_selinux_packages }}"
+  when: ansible_selinux.status == "enabled"
+  tags:
+    - cockpit
+    - selinux
     - monitoring
 
 - name: Install Cockpit Webserver
