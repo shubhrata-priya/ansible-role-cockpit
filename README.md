@@ -29,7 +29,12 @@ None.
 
 ```
 # defaults/main.yml
-cockpit_packages: ['cockpit-bridge', 'cockpit-shell', 'cockpit-storaged', 'cockpit-networkmanager']
+---
+cockpit_packages: ['cockpit-system', 'cockpit-networkmanager', 'cockpit-packagekit', 'cockpit-storaged']
+cockpit_selinux_packages: ['cockpit-selinux']
+# Install cockpit with webserver (not recommended per default!)
+cockpit_with_webserver: false
+cockpit_packages_web: ['cockpit-ws', 'cockpit-dashboard']
 ```
 
 ## Example Playbook
