@@ -19,6 +19,18 @@
     - selinux
     - monitoring
 
+- name: Install Cockpit PCP Packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ cockpit_pcp_packages }}"
+  when: cockpit_with_pcp == True
+  tags:
+    - cockpit
+    - performance
+    - monitoring
+    - metrics
+
 - name: Install Cockpit Webserver
   package:
     name: "{{ cockpit_packages_web}}"

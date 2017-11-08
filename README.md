@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/while-true-do/ansible-role-cockpit.svg?branch=master)](https://travis-ci.org/while-true-do/ansible-role-cockpit)
 
 # Ansible Role: cockpit
-| A role to install cockpit packages.
+| A role to install [cockpit project](http://cockpit-project.org) packages.
 
 ## Installation
 
@@ -23,7 +23,14 @@ None.
 
 ## Dependencies
 
-None.
+This role depends on <https://galaxy.ansible.com/while-true-do/pcp>.
+You have to install the role:
+
+```
+ansible-galaxy install -r requirements.yml
+```
+
+And afterwards, can use/not use it with variables below.
 
 ## Role Variables
 
@@ -32,8 +39,11 @@ None.
 ---
 cockpit_packages: ['cockpit-system', 'cockpit-networkmanager', 'cockpit-packagekit', 'cockpit-storaged']
 cockpit_selinux_packages: ['cockpit-selinux']
+# Default with pcp dependency
+cockpit_with_pcp: True
+cockpit_pcp_packages: ['cockpit-pcp']
 # Install cockpit with webserver (not recommended per default!)
-cockpit_with_webserver: false
+cockpit_with_webserver: False
 cockpit_packages_web: ['cockpit-ws', 'cockpit-dashboard']
 ```
 
