@@ -38,7 +38,9 @@ And afterwards, can use/not use it with variables below.
 # defaults/main.yml
 ---
 cockpit_packages: ['cockpit-system', 'cockpit-networkmanager', 'cockpit-packagekit', 'cockpit-storaged']
-cockpit_selinux_packages: ['cockpit-selinux']
+# Default with selinux, if selinux present
+cockpit_with_selinux: True
+cockpit_selinux_packages: ['cockpit-selinux', 'setroubleshoot-server']
 # Default with pcp dependency
 cockpit_with_pcp: True
 cockpit_pcp_packages: ['cockpit-pcp']
