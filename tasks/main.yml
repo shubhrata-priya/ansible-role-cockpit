@@ -13,7 +13,7 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ cockpit_selinux_packages }}"
-  when: ansible_selinux.status == "enabled"
+  when: ansible_selinux.status == "enabled" and cockpit_with_selinux == True
   tags:
     - cockpit
     - selinux
