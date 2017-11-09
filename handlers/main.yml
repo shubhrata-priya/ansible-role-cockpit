@@ -4,4 +4,3 @@
     name: cockpit.socket
     state: started
     enabled: yes
-
