@@ -1,0 +1,62 @@
+---
+- name: Set Cockpit Webserver to "{{ wtd_cockpit_webserver_state }}"
+  package:
+    name: "{{ item }}"
+    state: "{{ wtd_cockpit_webserver_state }}"
+  with_items: "{{ wtd_cockpit_webserver_packages }}"
+  tags:
+    - cockpit
+    - webserver
+
+- name: Configure Cockpit Webserver
+  template:
+    src: cockpit.conf.j2
+    dest: /etc/cockpit/cockpit.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Cockpit Webserver
+  tags:
+    - cockpit
+    - webserver
+
+- name: Create Cockpit Webserver Socket Directory
+  file:
+    path: etc/systemd/system/cockpit.socket.d
+    state: directory
+    mode: 0755
+  when: wtd_cockpit_webserver_ListenStream
+
+- name: Configure Cockpit Webserver Socket
+  template:
+    src: listen.conf.j2
+    dest: /etc/systemd/system/cockpit.socket.d/listen.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Cockpit Webserver
+  when: wtd_cockpit_webserver_ListenStream
+  tags:
+    - cockpit
+    - webserver
+
+- name: Configure Cockpit Webserver Selinux
+  seport:
+    ports: "{{ wtd_cockpit_webserver_ListenStream }}"
+    proto: tcp
+    setype: websm_port_t
+    state: present
+  when: ( ansible_selinux.status == "enabled" and wtd_cockpit_webserver_ListenStream )
+
+- name: Enable and Start Cockpit Webserver Socket
+  systemd: 
+    name: "{{ wtd_cockpit_webserver_service }}"
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  tags:
+    - cockpit
+    - webserver
+    - service

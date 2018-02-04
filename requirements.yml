@@ -1,3 +1,4 @@
 ---
-# Install while-true-do.pcp from galaxy
+- src: while-true-do.docker
 - src: while-true-do.pcp
+- src: while-true-do.selinux
