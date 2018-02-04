@@ -51,6 +51,57 @@ And afterwards, you can use/not use the features.
 ```yaml
 # defaults/main.yml
 
+# You can enable or disable some features with the "state: [present|absent]":
+#   present      - Install the feature + depending roles.
+#   absent       - Not install / remove the packages.
+#
+# For some features, additional roles are needed. Please have a look at the dependencies.
+# 
+wtd_cockpit_base_state: 'present'
+wtd_cockpit_base_packages:
+  - 'cockpit-system'
+  - 'cockpit-networkmanager'
+  - 'cockpit-packagekit'
+  - 'cockpit-storaged'
+  - 'cockpit-sosreport'
+
+# Depends on while-true-do.docker
+wtd_cockpit_docker_state: 'absent'
+wtd_cockpit_docker_packages: 'cockpit-docker'
+
+# Depends on while-true-do.pcp
+wtd_cockpit_pcp_state: 'present'
+wtd_cockpit_pcp_packages: 'cockpit-pcp'
+
+# Depends on while-true-do.selinux
+wtd_cockpit_selinux_state: 'present'
+wtd_cockpit_selinux_packages:
+  - 'cockpit-selinux'
+  - 'setroubleshoot-server'
+
+# Cockpit Webserver
+wtd_cockpit_webserver_state: 'absent'
+wtd_cockpit_webserver_packages:
+  - 'cockpit'
+  - 'cockpit-ws'
+  - 'cockpit-dashboard'
+
+# See here: http://cockpit-project.org/guide/latest/listen.html#listen-systemd
+wtd_cockpit_webserver_service: 'cockpit.socket'
+wtd_cockpit_webserver_ListenStream: ''   # Defaults to 9090
+
+# See here: http://cockpit-project.org/guide/latest/cockpit.conf.5.html
+wtd_cockpit_webserver_Origins: ''
+wtd_cockpit_webserver_ProtocolHeader: ''
+wtd_cockpit_webserver_LoginTo: ''
+wtd_cockpit_webserver_LoginTitle: ''
+wtd_cockpit_webserver_RequireHost: ''
+wtd_cockpit_webserver_MaxStartups: '3'
+wtd_cockpit_webserver_AllowUnencrypted: ''
+wtd_cockpit_webserver_UrlRoot: ''
+
+# See here: http://cockpit-project.org/guide/latest/cockpit-ws.8.html
+wtd_cockpit_webserver_cert: '
 ```
 
 ```yaml
