@@ -29,6 +29,8 @@ git clone https://github.com/while-true-do/ansible-role-cockpit.git while-true-d
 -   [template_module](http://docs.ansible.com/ansible/latest/template_module.html)
 -   [package_module](http://docs.ansible.com/ansible/latest/package_module.html)
 -   [include_module](http://docs.ansible.com/ansible/latest/include_module.html)
+-   [file_module](http://docs.ansible.com/ansible/latest/file_module.html)
+-   [seport_module](http://docs.ansible.com/ansible/latest/seport_module.html)
 
 ## Dependencies
 
