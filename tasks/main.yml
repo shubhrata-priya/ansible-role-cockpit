@@ -1,43 +1,46 @@
 ---
-- name: Install Cockpit Packages
+- name: Set Cockpit Base to "{{ wtd_cockpit_base_state }}"
   package:
     name: "{{ item }}"
-    state: present
-  with_items: "{{ cockpit_packages }}"
+    state: "{{ wtd_cockpit_base_state }}"
+  with_items: "{{ wtd_cockpit_base_packages }}"
   tags:
     - cockpit
-    - monitoring
 
-- name: Install Cockpit Selinux Packages
+# Depends on while-true-do.docker
+- name: Set Cockpit Docker to "{{ wtd_cockpit_docker_state }}"
   package:
     name: "{{ item }}"
-    state: present
-  with_items: "{{ cockpit_selinux_packages }}"
-  when: ansible_selinux.status == "enabled" and cockpit_with_selinux == True
+    state: "{{ wtd_cockpit_docker_state }}"
+  with_items: "{{ wtd_cockpit_docker_packages }}"
+  tags:
+    - cockpit
+    - docker
+
+# Depends on while-true-do.pcp
+- name: Set Cockpit PCP to "{{ wtd_cockpit_pcp_state }}"
+  package:
+    name: "{{ item }}"
+    state: "{{ wtd_cockpit_pcp_state }}"
+  with_items: "{{ wtd_cockpit_pcp_packages }}"
+  tags:
+    - cockpit
+    - pcp
+
+# Depends on while-true-do.selinux
+- name: Set Cockpit Selinux to "{{ wtd_cockpit_selinux_state }}"
+  package:
+    name: "{{ item }}"
+    state: "{{ wtd_cockpit_selinux_state }}"
+  with_items: "{{ wtd_cockpit_selinux_packages }}"
   tags:
     - cockpit
     - selinux
-    - monitoring
 
-- name: Install Cockpit PCP Packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ cockpit_pcp_packages }}"
-  when: cockpit_with_pcp == True
+- name: Set Cockpit Webserver to "{{ wtd_cockpit_webserver_state }}"
+  include_tasks: "tasks/cockpit-ws.yml"
+  when: ( wtd_cockpit_webserver_state == "present" )
   tags:
     - cockpit
-    - performance
-    - monitoring
-    - metrics
-
-- name: Install Cockpit Webserver
-  package:
-    name: "{{ cockpit_packages_web}}"
-    state: present
-  when: cockpit_with_webserver == true
-  notify: Enable and Start Cockpit
-  tags:
-    - cockpit
-    - monitoring
     - webserver
+    - dashboard
