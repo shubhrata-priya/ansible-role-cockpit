@@ -2,6 +2,7 @@ personal_ws-1.1 en 0
 ansible
 Ansible
 aspell
+CentOS
 Github
 init
 passlib
@@ -9,6 +10,6 @@ reachability
 refactoring
 screenshots
 selinux
-wtd
-webserver
 Webserver
+wtd
+yml

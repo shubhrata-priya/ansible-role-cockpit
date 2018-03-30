@@ -1,12 +1,10 @@
 ---
-dependencies:
-  - { role: while-true-do.docker, when: wtd_cockpit_docker_state == 'present' }
-  - { role: while-true-do.pcp, when: wtd_cockpit_pcp_state == 'present' }
-  - { role: while-true-do.selinux, when: wtd_cockpit_selinux_state == 'present' }
+dependencies: []
 
 galaxy_info:
   author: while-true-do.org
   description: A role to install and configure cockpit packages.
+  company: while-true-do.org
 
   issue_tracker_url: https://github.com/while-true-do/ansible-role-cockpit/issues
   github_branch: master

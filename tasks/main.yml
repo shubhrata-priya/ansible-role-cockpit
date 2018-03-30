@@ -1,18 +1,16 @@
 ---
 - name: Set Cockpit Base to "{{ wtd_cockpit_base_state }}"
   package:
-    name: "{{ item }}"
+    name: "{{ wtd_cockpit_base_packages }}"
     state: "{{ wtd_cockpit_base_state }}"
-  with_items: "{{ wtd_cockpit_base_packages }}"
   tags:
     - cockpit
 
 # Depends on while-true-do.docker
 - name: Set Cockpit Docker to "{{ wtd_cockpit_docker_state }}"
   package:
-    name: "{{ item }}"
+    name: "{{ wtd_cockpit_docker_packages }}"
     state: "{{ wtd_cockpit_docker_state }}"
-  with_items: "{{ wtd_cockpit_docker_packages }}"
   tags:
     - cockpit
     - docker
@@ -20,9 +18,8 @@
 # Depends on while-true-do.pcp
 - name: Set Cockpit PCP to "{{ wtd_cockpit_pcp_state }}"
   package:
-    name: "{{ item }}"
+    name: "{{ wtd_cockpit_pcp_packages }}"
     state: "{{ wtd_cockpit_pcp_state }}"
-  with_items: "{{ wtd_cockpit_pcp_packages }}"
   tags:
     - cockpit
     - pcp
@@ -30,15 +27,23 @@
 # Depends on while-true-do.selinux
 - name: Set Cockpit Selinux to "{{ wtd_cockpit_selinux_state }}"
   package:
-    name: "{{ item }}"
+    name: "{{ wtd_cockpit_selinux_packages }}"
     state: "{{ wtd_cockpit_selinux_state }}"
-  with_items: "{{ wtd_cockpit_selinux_packages }}"
+  tags:
+    - cockpit
+    - selinux
+
+# Depends on while-true-do.kvm
+- name: Set Cockpit KVM to "{{ wtd_cockpit_kvm_state }}"
+  package:
+    name: "{{ wtd_cockpit_kvm_packages }}"
+    state: "{{ wtd_cockpit_kvm_state }}"
   tags:
     - cockpit
     - selinux
 
 - name: Set Cockpit Webserver to "{{ wtd_cockpit_webserver_state }}"
-  include_tasks: "tasks/cockpit-ws.yml"
+  include_tasks: "cockpit-ws.yml"
   when: ( wtd_cockpit_webserver_state == "present" )
   tags:
     - cockpit
