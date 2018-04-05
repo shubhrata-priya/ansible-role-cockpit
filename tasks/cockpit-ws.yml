@@ -1,9 +1,8 @@
 ---
 - name: Set Cockpit Webserver to "{{ wtd_cockpit_webserver_state }}"
   package:
-    name: "{{ item }}"
+    name: "{{ wtd_cockpit_webserver_packages }}"
     state: "{{ wtd_cockpit_webserver_state }}"
-  with_items: "{{ wtd_cockpit_webserver_packages }}"
   tags:
     - cockpit
     - webserver
@@ -51,7 +50,7 @@
   when: ( ansible_selinux.status == "enabled" and wtd_cockpit_webserver_ListenStream )
 
 - name: Enable and Start Cockpit Webserver Socket
-  systemd: 
+  systemd:
     name: "{{ wtd_cockpit_webserver_service }}"
     state: started
     enabled: yes

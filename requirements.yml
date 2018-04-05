@@ -2,3 +2,4 @@
 - src: while-true-do.docker
 - src: while-true-do.pcp
 - src: while-true-do.selinux
+- src: while-true-do.kvm
